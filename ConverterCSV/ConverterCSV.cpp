@@ -1,5 +1,8 @@
-#include <Windows.h>
+﻿#include <Windows.h>
 #include "ConvertDefinition.h"
+#include <string>
+
+using namespace std;
 
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow)
 {
@@ -40,13 +43,25 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
 	case WM_COMMAND:
 		switch (wp)
 		{
-		case OnMenuClicked:
-			MessageBoxA(hWnd, "Menu was clicked!", "Menu worked", MB_OK);
+		case OnMenuClicked1:
+			MessageBoxA(hWnd, "File opne", "Menu worked", MB_OK);
+			CreateWindowA("static", "...file open", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20, hWnd, NULL, NULL, NULL);
+			break;
+		case OnMenuClicked2:
+			MessageBoxA(hWnd, "Menu 2 was clicked!", "Menu worked", MB_OK);
+			break;
+		case OnMenuClicked3:
+			MessageBoxA(hWnd, "Menu 3 was clicked!", "Menu worked", MB_OK);
+			break;
+		case OnExitSoftware:
+			PostQuitMessage(0);
 			break;
 		}
+		break;
 
 	case WM_CREATE:
 		MainWndAddMenus(hWnd);
+		MainWndAddWidgets(hWnd);
 		break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
@@ -58,8 +73,23 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
 void MainWndAddMenus(HWND hwnd)
 {
 	HMENU RootMenu = CreateMenu();
+	HMENU SubMenu = CreateMenu();
 
-	AppendMenu(RootMenu, MF_STRING, OnMenuClicked, L"Operation");
+	AppendMenu(SubMenu, MF_STRING, OnMenuClicked1, L"File open");
+	AppendMenu(SubMenu, MF_STRING, OnMenuClicked2, L"Menu 2");
+	AppendMenu(SubMenu, MF_STRING, OnMenuClicked3, L"Menu 3");
+	AppendMenu(SubMenu, MF_SEPARATOR, NULL, NULL);
+	AppendMenu(SubMenu, MF_STRING, OnExitSoftware, L"Exit");
+
+
+	AppendMenu(RootMenu, MF_POPUP, (UINT_PTR)SubMenu, L"Operation");
 
 	SetMenu(hwnd, RootMenu);
+}
+
+void MainWndAddWidgets(HWND hWnd)
+{
+	CreateWindowA("static", "Operation Status:", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20,hWnd, NULL, NULL, NULL); //Название виджета
+	CreateWindowA("static", "", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20, hWnd, NULL, NULL, NULL); //
+	CreateWindowA("edit", "This is edit control", WS_VISIBLE | WS_CHILD, 5, 30, 990, 20,hWnd, NULL, NULL, NULL);
 }
