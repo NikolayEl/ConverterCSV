@@ -6,7 +6,7 @@ using namespace std;
 
 int WINAPI WinMain(HINSTANCE hinst, HINSTANCE hPrevInst, LPSTR args, int ncmdshow)
 {
-	WNDCLASS SoftwareMainClass = NewWindowClass((HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_HAND), hinst, LoadIcon(NULL, IDI_QUESTION), L"MainWndClass", SoftwareMainProcedure);
+	WNDCLASS SoftwareMainClass = NewWindowClass((HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_ARROW), hinst, LoadIcon(NULL, IDI_QUESTION), L"MainWndClass", SoftwareMainProcedure);
 	
 	if (!RegisterClassW(&SoftwareMainClass)) { return -1; };
 	MSG SoftwareMainMessage = { 0 };
@@ -44,8 +44,10 @@ LRESULT CALLBACK SoftwareMainProcedure(HWND hWnd, UINT msg, WPARAM wp, LPARAM lp
 		switch (wp)
 		{
 		case OnMenuClicked1:
-			MessageBoxA(hWnd, "File opne", "Menu worked", MB_OK);
-			CreateWindowA("static", "...file open", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20, hWnd, NULL, NULL, NULL);
+			MessageBoxA(hWnd, "File is open!", "MENU:", MB_OK);
+			break;
+		case OnButtonClicked:
+			MessageBoxA(hWnd, "Thanks!", "Button clicked", MB_OK);
 			break;
 		case OnMenuClicked2:
 			MessageBoxA(hWnd, "Menu 2 was clicked!", "Menu worked", MB_OK);
@@ -90,6 +92,7 @@ void MainWndAddMenus(HWND hwnd)
 void MainWndAddWidgets(HWND hWnd)
 {
 	CreateWindowA("static", "Operation Status:", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20,hWnd, NULL, NULL, NULL); //Название виджета
-	CreateWindowA("static", "", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20, hWnd, NULL, NULL, NULL); //
-	CreateWindowA("edit", "This is edit control", WS_VISIBLE | WS_CHILD, 5, 30, 990, 20,hWnd, NULL, NULL, NULL);
+	CreateWindowA("static", "...ready", WS_VISIBLE | WS_CHILD, 5, 5, 990, 20, hWnd, NULL, NULL, NULL); //
+	CreateWindowA("edit", "This is edit control", WS_VISIBLE | WS_CHILD, 5, 30, 990, 20, hWnd, NULL, NULL, NULL);
+	CreateWindowA("button", "Open file", WS_VISIBLE | WS_CHILD, 450, 350, 120, 30, hWnd, (HMENU)OnButtonClicked, NULL, NULL);
 }
