@@ -131,6 +131,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConvertDefinition.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="resource1.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ConverterCSV.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ConverterCSV.aps" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\..\..\ELV.ico" />
+    <Image Include="..\..\..\..\icon3.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

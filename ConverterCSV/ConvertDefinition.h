@@ -9,11 +9,19 @@
 #define OnButton3Clicked   7
 #define OnClearField       8
 #define OnHelpSofrware     9
+#define OnSaveFile         11
+#define OnLoadFile         12
 
-HWND hEditControl;
+#define TextBufferSize    10
+
+char buffer[TextBufferSize];
+
+HWND hStaticControl;
 
 LRESULT CALLBACK SoftwareMainProcedure(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 WNDCLASS NewWindowClass(HBRUSH BGColor, HCURSOR Cursor, HINSTANCE hInst, HICON Icon, LPCWSTR Name, WNDPROC Procedure);
 
 void MainWndAddMenus(HWND hwnd);
 void MainWndAddWidgets(HWND hwnd);
+void SaveData(LPCSTR path);
+void LoadData(LPCSTR path);
